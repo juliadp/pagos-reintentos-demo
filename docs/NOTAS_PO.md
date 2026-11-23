@@ -21,3 +21,12 @@ POST JSON: `event_id`, `payment_id`, `status` (PENDING|AUTHORIZED|CAPTURED|FAILE
 ## Acreditacion
 - La plata se mueve en la captura (CAPTURED): ese efecto ocurre **una sola vez por pago**.
 - Si llegan dos CAPTURED para el mismo `payment_id` (aun con distinto `event_id`), el estado queda CAPTURED, se registran ambos y no se acredita de nuevo.
+
+## Historial
+- Tiene que listar **todos** los eventos recibidos: aplicados, fuera de orden y duplicados (reintentos).
+- Como se marca cada uno queda a criterio tecnico. Decision: cada recepcion se guarda en `webhook_delivery`
+  con su `outcome` (APPLIED, IGNORED_STALE, DUPLICATE).
+
+## Reembolsos
+- El PO no confirma si PayGate permite REFUNDED sobre algo que no sea CAPTURED.
+- Supuesto: REFUNDED solo avanza desde CAPTURED; si llega sobre otro estado queda en el historial como IGNORED_STALE.
