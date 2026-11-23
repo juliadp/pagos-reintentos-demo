@@ -11,3 +11,9 @@ POST JSON: `event_id`, `payment_id`, `status` (PENDING|AUTHORIZED|CAPTURED|FAILE
 
 ## Estados
 - Finales: CAPTURED, FAILED, REFUNDED.
+
+## Orden de entrega
+- PayGate NO garantiza orden: un evento con timestamp posterior puede llegar antes.
+- Si llega un evento de un estado anterior al actual (ej. PENDING despues de CAPTURED) **no se degrada** el estado.
+- El evento se registra igual en el historial / auditoria.
+- Matriz de transiciones: el PO no la tiene; confirmados como finales CAPTURED, FAILED y REFUNDED.
