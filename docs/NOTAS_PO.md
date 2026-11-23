@@ -17,3 +17,7 @@ POST JSON: `event_id`, `payment_id`, `status` (PENDING|AUTHORIZED|CAPTURED|FAILE
 - Si llega un evento de un estado anterior al actual (ej. PENDING despues de CAPTURED) **no se degrada** el estado.
 - El evento se registra igual en el historial / auditoria.
 - Matriz de transiciones: el PO no la tiene; confirmados como finales CAPTURED, FAILED y REFUNDED.
+
+## Acreditacion
+- La plata se mueve en la captura (CAPTURED): ese efecto ocurre **una sola vez por pago**.
+- Si llegan dos CAPTURED para el mismo `payment_id` (aun con distinto `event_id`), el estado queda CAPTURED, se registran ambos y no se acredita de nuevo.
