@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:pagos;MODE=PostgreSQL;DATABASE_TO_UPPER=TRUE
+    username: sa
+    password:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
